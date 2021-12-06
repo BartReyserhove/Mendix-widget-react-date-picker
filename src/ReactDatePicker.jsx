@@ -11,19 +11,12 @@ export default class ReactDatePicker extends Component {
         };
         this.onChangeHandler = this.onChange.bind(this);
         this.onClickHandler = this.onClick.bind(this);
-        this.onClickOutsideHandler = this.onClickOutside.bind(this);
     }
 
     render() {
         if (this.props.date.status === "unavailable" || this.props.date.status === "loading") {
             return null;
         }
-
-        const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-            <button className="fal fa-chevron-down ps_close-button" onClick={onClick} ref={ref}>
-                {value}
-            </button>
-        ));
 
         return React.createElement(
             "div",
@@ -37,8 +30,6 @@ export default class ReactDatePicker extends Component {
                 ? React.createElement(DatePicker, {
                       selected: this.props.date.value,
                       onChange: date => this.onChangeHandler(date),
-                      customInput: React.createElement(ExampleCustomInput),
-                      onClickOutside: this.onClickOutsideHandler(),
                       onSelect: date => this.onChangeHandler(date),
                       inline: true
                   })
@@ -53,9 +44,5 @@ export default class ReactDatePicker extends Component {
 
     onClick() {
         this.setState({ isOpen: !this.state.isOpen });
-    }
-
-    onClickOutside() {
-        //this.setState({ isOpen: !this.state.isOpen });
     }
 }
